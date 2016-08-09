@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>tododo</title>
+	<style>
+		.del{display:inline-block; float:right;margin-right:5px;cursor:pointer;}
+		.list{margin-left:20px; background-color:#eee; min-height:30px; margin-bottom:5px; padding:15px 5px 1px 14px;}
+		.container{width:670px; margin:0 auto; padding:0 20px;}
+		.nav{height:60px;background-color:#ccc; width:100%;}
+		.inp{height:60px;line-height:60px; font-size:1.7em;margin-left: 15px; margin-right:22px;}
+		.inText{ height: 30px; width: 200px; border: none; box-shadow: 0 0 13px #968c8c; padding-left: 10px; border-radius: 5px; position: absolute; top: 22px;transition:width cubic-bezier(0.75,0.34,0.87,0.65) 0.3s;}
+		.inText:focus{outline: #736a6a auto 1px;}
+		.inText:hover{width:300px; transition:width ease 0.3s;}
+		i.count{margin-right:15px; float:right;}
+		p{padding-left:15px;}
+	</style>
+</head>
+<body ng-controller="myCtrl">
+	<div class="container">
+		<div class="nav">
+			<span class="inp">ToDoList</span>
+			<input class="inText" type="text" ng-keypress="enterToDo($event)" ng-model="write" placeholder="添加toDo">
+		</div>
+
+		<p>正在进行<i ng-bind="count" class="count"></i></p>
+		<div class="list" ng-repeat="x in list track by $index" ng-if="x.change == false">
+
+			<input type="checkbox" ng-click="checkFn($index)">
+			<span ng-bind="x.name"></span>
+			<div class="del" ng-click="del($index)">删除</div>
+		</div>
+
+		<p>已完成<i ng-bind="counted" class="count"></i></p>
+		<div class="list" ng-repeat="y in list track by $index" ng-if="y.change == true">
+			<input type="checkbox" checked="y.change" ng-click="checkFn($index)">
+			<span ng-bind="y.name"></span>
+			<div class="del" ng-click="del($index)">删除</div>
+		</div>
+	</div>
+	
+	<script src="build.js"></script>
+</body>
+</html>
